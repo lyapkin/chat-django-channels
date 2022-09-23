@@ -1,0 +1,8 @@
+.right-window {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    background: #f1e5e5;
+    width: 75%;
+    border: solid 2px #0f0f12;
+}
