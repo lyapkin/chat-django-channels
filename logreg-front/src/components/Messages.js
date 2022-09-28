@@ -13,23 +13,27 @@ const Messages = () => {
     const [isScrolled, setIsScrolled] = useState(false)
     const {chatSocket} = useAuth()
     const messagesContainer = useRef(null)
-    const { chatId } = useParams()
-
+    const {connectionUserId} = useParams()
+    
     useEffect(() => {
         const getMessages = async () => {
             try {
-                const response = await fetch(`http://127.0.0.1:8000/connections/${chatId}`, {
+                const response = await fetch(`http://127.0.0.1:8000/connections/${connectionUserId}`, {
                     method: 'GET',
                     credentials: 'include'
                 })
-                const result = await response.json()
-                setMessages(result)
+                if (response.status === 204) {
+                    setMessages([])
+                } else if (response.ok) {
+                    const result = await response.json()
+                    setMessages(result)
+                }
             } catch {
                 console.log('network problem')
             }
         }
         getMessages()
-    }, [chatId])
+    }, [connectionUserId])
 
     useEffect(() => {
         const handleMessage = event => {

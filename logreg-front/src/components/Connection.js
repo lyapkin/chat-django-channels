@@ -11,7 +11,7 @@ const Connection = ({data}) => {
     const date = parseDate(data.lastMessageTime)
 
     return (
-        <li className='connection' onClick={() => navigate(`${data.chatId}/${data.id}`)}>
+        <li className='connection' onClick={() => navigate(`${data.connectionUserId}`)}>
             <div className='connection__header'>
                 <span className='connection__username'>@{data.connectionUsername}</span>
                 <span className='connection__message-time'>{date}</span>

@@ -12,7 +12,7 @@ const RightWindow = () => {
         <div className='right-window'>
             <Routes>
                 <Route index element={<div>pick a chat</div>} />
-                <Route path=':chatId/:connectionId' element={
+                <Route path=':connectionUserId' element={
                     <>
                         <Messages />
                         <MessageInput />

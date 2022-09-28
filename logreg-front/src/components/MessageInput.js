@@ -7,12 +7,12 @@ import '../styles/MessageInput.css'
 const MessageInput = () => {
     const [message, setMessage] = useState('')
     const textAreaElement = useRef(null)
-    const {chatId, connectionId} = useParams()
+    const {connectionUserId} = useParams()
     const {chatSocket} = useAuth()
 
     useEffect(() => {
         setMessage('')
-    }, [connectionId])
+    }, [connectionUserId])
 
     const handleChange = event => {
         setMessage(event.target.value)
@@ -22,8 +22,7 @@ const MessageInput = () => {
 
     const handleClick = event => {
         const data = JSON.stringify({
-            connection_id: connectionId,
-            chat_id: chatId,
+            connected_to: connectionUserId,
             message
         })
         if (chatSocket.readyState === WebSocket.OPEN) {
@@ -37,8 +36,8 @@ const MessageInput = () => {
 
     return (
         <div className='message-input'>
-            <textarea className='message-input__textarea' disabled={connectionId ? false : true} placeholder='Message' rows='1' ref={textAreaElement} value={message} onChange={handleChange} />
-            <button className='message-input__button' disabled={connectionId ? false : true} onClick={handleClick}>Send</button>
+            <textarea className='message-input__textarea' disabled={connectionUserId ? false : true} placeholder='Message' rows='1' ref={textAreaElement} value={message} onChange={handleChange} />
+            <button className='message-input__button' disabled={connectionUserId ? false : true} onClick={handleClick}>Send</button>
         </div>
     )
 }

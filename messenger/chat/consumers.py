@@ -2,10 +2,11 @@ import json
 
 from django.contrib.auth import get_user_model
 from django.db.models import F, Q
+from django.core.exceptions import ObjectDoesNotExist
 from channels.generic.websocket import WebsocketConsumer
 from asgiref.sync import async_to_sync
 
-from .models import Connection
+from .models import Connection, Chat, Message
 
 from datetime import datetime
 
@@ -25,30 +26,62 @@ class ChatConsumer(WebsocketConsumer):
     
     def receive(self, text_data):
         data = json.loads(text_data)
-        send_to = Connection.objects.select_related('connected_to').get(id=data['connection_id']).connected_to.username
-        send_data = {
+        try:
+            connection = Connection.objects.select_related('connected_to', 'chat').get(user=self.scope['user'].id, connected_to=data['connected_to'])
+            connection_to = Connection.objects.select_related('connected_to', 'chat').get(user=data['connected_to'], connected_to=self.scope['user'].id)
+            prev_message = Message.objects.filter(chat=connection.chat).last()
+            message = Message(content=data['message'], sent_by=self.scope['user'], previous_message=prev_message, chat=connection.chat)
+        except ObjectDoesNotExist:
+            user_to_connect = get_user_model().objects.get(id=data['connected_to'])
+            chat = Chat()
+            print(chat)
+            message = Message(content=data['message'], sent_by=self.scope['user'], chat=chat)
+            connection = Connection(user=self.scope['user'], connected_to=user_to_connect, chat=chat)
+            connection_to = Connection(user=user_to_connect, connected_to=self.scope['user'], chat=chat)
+            chat.save()
+        
+        connection.last_sent_message = message
+        connection_to.last_sent_message = message
+        message.save()
+        connection.save()
+        connection_to.save()
+        
+        data_to_send = {
              'messageData': {
-                'id': int(datetime.now().timestamp()),
-                'content': data['message'],
-                # 'connectionId': data['connection_id'],
+                'id': message.id,
+                'content': message.content,
                 'sentBy': int(self.scope['user'].id),
-                'sentTime': datetime.now().isoformat()
+                'sentTime': message.sent_time.isoformat()
             },
             'connectionData': {
-                'chatId': int(data['chat_id']),
-                'content': data['message'],
+                'chatId': int(connection.chat.id),
+                'content': message.content,
                 'sentBy': self.scope['user'].username,
-                'sentTime': datetime.now().isoformat()
+                'sentTime': message.sent_time.isoformat()
             }
         }
+        # data_to_send = {
+        #      'messageData': {
+        #         'id': int(datetime.now().timestamp()),
+        #         'content': data['message'],
+        #         'sentBy': int(self.scope['user'].id),
+        #         'sentTime': datetime.now().isoformat()
+        #     },
+        #     'connectionData': {
+        #         'chatId': int(connection.chat.id),
+        #         'content': data['message'],
+        #         'sentBy': self.scope['user'].username,
+        #         'sentTime': datetime.now().isoformat()
+        #     }
+        # }
         
-        self.send(json.dumps(send_data))
-        # save a message to the database (correct id and sentTime before saving) and update the connections
+        self.send(json.dumps(data_to_send))
+        # reminder: save a message to the database (correct id and sentTime before saving) and update the connections
         async_to_sync(self.channel_layer.group_send)(
-            send_to,
+            connection.connected_to.username,
             {
                 'type': 'chat.message',
-                'data': send_data
+                'data': data_to_send
             }
         )
 
@@ -68,8 +101,8 @@ class SearchConnectionConsumer(WebsocketConsumer):
     def receive(self, text_data):
         users = list(
             get_user_model().objects.filter(Q(username__icontains=text_data) | Q(first_name__icontains=text_data) | Q(last_name__icontains=text_data)).values(
-                'id',
                 'username',
+                userId=F('id'),
                 firstName=F('first_name'),
                 lastName=F('last_name')
             )

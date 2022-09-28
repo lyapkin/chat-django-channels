@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse, Http404
 from django.contrib.auth import get_user_model
 from django.db.models import F, Q
+from django.core.exceptions import ObjectDoesNotExist
 
 from .models import Connection, Message, Chat
 
@@ -15,6 +16,7 @@ def provide_connections(request):
         Connection.objects.filter(user=request.user).select_related('connected_to', 'last_sent_message').values(
                 'id',
                 chatId=F('chat'),
+                connectionUserId=F('connected_to__id'),
                 connectionUsername=F('connected_to__username'),
                 connectionFirstName=F('connected_to__first_name'),
                 connectionLastName=F('connected_to__last_name'),
@@ -26,7 +28,12 @@ def provide_connections(request):
     return JsonResponse(data, status=200, safe=False)
 
 
-def provide_messages(request, chat_id):
+def provide_messages(request, to_user_id):
+    try:
+        chat_id = Connection.objects.get(user=request.user.id, connected_to=to_user_id).chat
+    except ObjectDoesNotExist:
+        return HttpResponse(status=204)
+        
     data = list(
         Message.objects.filter(chat=chat_id).values(
             'id',
@@ -35,6 +42,7 @@ def provide_messages(request, chat_id):
             sentTime=F('sent_time')
         )
     )
+    
     return JsonResponse(data, status=200, safe=False)
 
 

@@ -13,7 +13,7 @@ class Message(models.Model):
     sent_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.DO_NOTHING)
     sent_time = models.DateTimeField(auto_now_add=True)
     previous_message = models.OneToOneField('self', on_delete=models.DO_NOTHING, null=True)
-    chat = models.ForeignKey(Chat, on_delete=models.CASCADE)
+    chat = models.ForeignKey(Chat, on_delete=models.CASCADE, related_name='messages')
     # connection
 
 

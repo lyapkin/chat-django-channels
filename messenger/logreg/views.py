@@ -19,7 +19,7 @@ def reg(request):
             data = json.loads(request.body)
             user = CustomUser(**data)
             user.full_clean()
-            # user.save()
+            user.save()
             return JsonResponse(model_to_dict(user), status=201)
         except ValidationError as error:
             return JsonResponse(error.message_dict, status=400)
