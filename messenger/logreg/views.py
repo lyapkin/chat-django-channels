@@ -19,8 +19,9 @@ def reg(request):
             data = json.loads(request.body)
             user = CustomUser(**data)
             user.full_clean()
+            user.set_password(data['password'])
             user.save()
-            return JsonResponse(model_to_dict(user), status=201)
+            return JsonResponse({'id': user.id}, status=201)
         except ValidationError as error:
             return JsonResponse(error.message_dict, status=400)
     return HttpResponse('request')

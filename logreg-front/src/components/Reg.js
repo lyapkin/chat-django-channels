@@ -1,4 +1,5 @@
 import React, {useState} from 'react'
+import {useNavigate} from 'react-router-dom'
 
 const initState = {
     value: '',
@@ -15,6 +16,7 @@ const Reg = () => {
     const [email, setEmail] = useState(initState)
     const [firstName, setFirstName] = useState('')
     const [lastName, setLastName] = useState('')
+    const navigate = useNavigate()
 
     const handleChange = event => {
         const field = event.target.id
@@ -91,6 +93,7 @@ const Reg = () => {
                 })
                 if (response.status === 201) {
                     const result = await response.json()
+                    navigate('/auth/login')
                     console.log(result)
                 } else if (response.status === 400) {
                     const errors = await response.json()
