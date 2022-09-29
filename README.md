@@ -6,7 +6,7 @@ Loads connections;
 Loads messages of a chosen connection;
 Implemented login and registration system
 
-There's a problem with registration for now: it doesn't save an easy password
+There's a problem with the registration system for now: it doesn't save a password
 So, you need to change it after registration in the admin (http://127.0.0.1:8000/admin)
 
 CORS turned off
