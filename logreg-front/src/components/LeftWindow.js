@@ -7,6 +7,7 @@ import SearchConnectionList from './SearchConnectionList'
 import MenuList from './MenuList'
 
 import '../styles/LeftWindow.css'
+import '../styles/LeftWindowBody.css'
 import '../styles/HeaderLeftButton.css'
 
 export const searchResultInit = {

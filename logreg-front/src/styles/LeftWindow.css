@@ -1,4 +1,6 @@
 .left-window {
+    display: flex;
+    flex-direction:column;
     background: #7c99fd;
     width: 25%;
 }

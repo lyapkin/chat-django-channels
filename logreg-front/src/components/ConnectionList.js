@@ -4,7 +4,6 @@ import useAuth from '../hooks/useAuth'
 
 import Connection from './Connection'
 
-import '../styles/ConnectionList.css'
 
 const ConnectionList = () => {
     const [connections, setConnections] = useState([])
@@ -61,7 +60,7 @@ const ConnectionList = () => {
     const content = connections.map(connection => <Connection key={connection.id} data={connection} />)
 
     return (
-        <div className='connection-list'>
+        <div className='left-window-body'>
             <ul>
                 {content}
             </ul>

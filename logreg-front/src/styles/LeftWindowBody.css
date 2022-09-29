@@ -3,3 +3,6 @@
     background: #7c99fd;
     flex-grow: 2;
 } */
+.left-window-body {
+    overflow-y: auto;
+}
