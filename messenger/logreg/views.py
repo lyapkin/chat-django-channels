@@ -24,6 +24,7 @@ def reg(request):
             return JsonResponse({'id': user.id}, status=201)
         except ValidationError as error:
             return JsonResponse(error.message_dict, status=400)
+            
     return HttpResponse('request')
 
 

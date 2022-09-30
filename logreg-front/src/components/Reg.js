@@ -105,6 +105,7 @@ const Reg = () => {
                                 break
                             case 'password':
                                 setPassword({...initState, error: {isExist: true, msg: errors[key].join(' ')}})
+                                setPasswordConfirm('')
                                 break
                             case 'email':
                                 setEmail(prev => ({...prev, error: {isExist: true, msg: errors[key].join(' ')}}))
@@ -134,7 +135,7 @@ const Reg = () => {
                 </div>
                 <div>
                     <label htmlFor='password_confirm'>Password confirmation: </label>
-                    <input type='password' id='password_confirm' name='password_confirm' value={passwordConfirm.value} onChange={handleChange} required></input>
+                    <input type='password' id='password_confirm' name='password_confirm' value={passwordConfirm} onChange={handleChange} required></input>
                 </div>
                 <div>
                     <label htmlFor='email'>Email: </label>

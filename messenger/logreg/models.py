@@ -4,6 +4,8 @@ from django.contrib.auth.models import AbstractBaseUser, UserManager, Permission
 from django.core.validators import RegexValidator
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
+from django.forms import ValidationError
+from django.contrib.auth.password_validation import validate_password
 
 
 
@@ -66,6 +68,21 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
         verbose_name = _("user")
         verbose_name_plural = _("users")
 
+    def clean_fields(self, exclude=None):
+        errors = {}
+        try:
+            super().clean_fields(exclude)
+        except ValidationError as err:
+            errors = err.update_error_dict(errors)
+    
+        try:
+            validate_password(self.password)
+        except ValidationError as err:
+            errors['password'] = err
+
+        if errors:
+            raise ValidationError(errors)
+    
     def clean(self):
         super().clean()
         self.email = self.__class__.objects.normalize_email(self.email)
