@@ -6,4 +6,4 @@ It's a chat I work on for practicing my skills
 - Loads messages of a chosen connection;
 - Implemented login and registration system
 
-CORS turned off
+CSRF turned off
