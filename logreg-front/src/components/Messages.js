@@ -50,7 +50,7 @@ const Messages = () => {
             console.log('remove eventlistener in messages')
             chatSocket.removeEventListener('message', handleMessage)
         }
-    }, [])
+    }, [chatSocket])
 
     useEffect(() => {
         if (!isScrolled) {
