@@ -1,8 +1,5 @@
 import React from 'react'
-import {Routes, Route} from 'react-router-dom'
-
-import Messages from './Messages'
-import MessageInput from './MessageInput'
+import {Outlet} from 'react-router-dom'
 
 import '../styles/RightWindow.css'
 
@@ -10,15 +7,7 @@ const RightWindow = () => {
     
     return (
         <div className='right-window'>
-            <Routes>
-                <Route index element={<div>pick a chat</div>} />
-                <Route path=':connectionUserId' element={
-                    <>
-                        <Messages />
-                        <MessageInput />
-                    </>
-                } />
-            </Routes>
+            <Outlet />
         </div>
     )
 }

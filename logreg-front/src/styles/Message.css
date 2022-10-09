@@ -3,10 +3,9 @@
     flex-direction: column;
     width: fit-content;
     max-width: 85%;
-    min-width: 10%;
+    min-width: 80px;
     padding: 5px 12px;
-    background: #fff;
-    border: solid 2px #8f8fad;
+    background: #f6f9ff;
     border-top-left-radius: 7px;
     border-top-right-radius: 7px;
     word-break: break-all;

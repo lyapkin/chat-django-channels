@@ -1,5 +1,6 @@
 .chat-header {
     display: flex;
-    justify-content: space-between;
-    border-bottom: solid 2px #0f0f12;
+    gap: 15px;
+    border-bottom: solid 2px #d7d9dd;
+    padding: 15px;
 }

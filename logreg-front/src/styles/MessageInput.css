@@ -1,8 +1,10 @@
 .message-input {
     display: flex;
     justify-content: center;
+    gap: 10px;
     max-height: 30%;
     padding: 10px 50px;
+    margin: 0 15px;
     border-top: solid 2px #0f0f121a;
 }
 
@@ -11,9 +13,10 @@
     width: 75%;
     max-height: 100px;
     min-height: 16px;
-    border: solid 2px #0f0f1258;
+    background: #ebeef3;
+    border: none;
     border-radius: 7px;
-    padding: 10px;
+    padding: 12px;
     overflow: hidden;
 }
 
@@ -22,12 +25,14 @@
 }
 
 .message-input__button {
-    background: #7c99fd;
-    border: solid 2px #7691f1;
     border-radius: 7px;
-    /* width: 80px; */
-    height: fit-content;
-    padding: 10px 30px;
-    margin-left: 10px;
-    align-self: flex-end
+    /* height: fit-content; */
+    /* padding: 10px 30px; */
+    /* align-self: flex-end; */
+}
+
+@media all and (max-width: 700px) {
+    .message-input {
+        padding: 10px 0;
+    }
 }

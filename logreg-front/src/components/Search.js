@@ -71,7 +71,7 @@ const Search = ({setSearchResult}) => {
 
     return (
         <div className='search'>
-            <input onFocus={handleFocus} onChange={handleChange} value={text} ref={searchInput} />
+            <input onFocus={handleFocus} onChange={handleChange} value={text} ref={searchInput} placeholder='Search' maxLength='41' />
         </div>
     )
 }

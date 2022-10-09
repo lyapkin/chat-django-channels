@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import { useLocation } from 'react-router-dom'
+import React, { useEffect, useState } from 'react'
+import { useLocation, useParams } from 'react-router-dom'
 
 import Header from './Header'
 import ConnectionList from './ConnectionList'
@@ -17,9 +17,21 @@ export const searchResultInit = {
 const LeftWindow = () => {
     const location = useLocation()
     const [searchResult, setSearchResult] = useState(searchResultInit)
+    const [hidden, setHidden] = useState(false)
+    const {connectionUserId} = useParams()
+
+    useEffect(() => {
+        if (connectionUserId) {
+            setHidden(true)
+        } else {
+            setHidden(false)
+        }
+    }, [connectionUserId])
+
+    const leftWindow = hidden ? 'left-window left-window_hidden' : 'left-window'
     
     return (
-        <div className='left-window'>
+        <div className={leftWindow} >
             <Header setSearchResult={setSearchResult} />
             {
                 (location.state?.isMenu && <MenuList />) ||

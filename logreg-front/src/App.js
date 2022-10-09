@@ -6,6 +6,8 @@ import Login from './components/Login'
 import Authorized from './components/Authorized';
 import Unauthorized from './components/Unauthorized';
 import Chat from './components/Chat'
+import Messages from './components/Messages'
+import MessageInput from './components/MessageInput'
 
 function App() {
     return (
@@ -19,7 +21,15 @@ function App() {
                 </Route>
 
                 <Route element={<Authorized />}>
-                    <Route path='chat/*' element={<Chat />} />
+                    <Route path='chat' element={<Chat />} >
+                        <Route index element={<div>pick a chat</div>} />
+                        <Route path=':connectionUserId' element={
+                            <>
+                                <Messages />
+                                <MessageInput />
+                            </>
+                        } />
+                    </Route>
                 </Route>
                 <Route
                     path="*"
