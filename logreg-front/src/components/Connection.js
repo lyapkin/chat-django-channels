@@ -1,5 +1,5 @@
 import React from 'react'
-import {useNavigate} from 'react-router-dom'
+import {useNavigate, useParams} from 'react-router-dom'
 
 import '../styles/Connection.css'
 
@@ -7,11 +7,14 @@ import { formatTime } from '../utils/dateTime'
 
 const Connection = ({data}) => {
     const navigate = useNavigate()
+    const {connectionUserId} = useParams()
 
     const date = parseDate(data.lastMessageTime)
+    
+    const classNames = Number(connectionUserId) === data.connectionUserId ? 'connection connection_active' : 'connection'
 
     return (
-        <li className='connection' onClick={() => navigate(`${data.connectionUserId}`)}>
+        <li className={classNames} onClick={() => navigate(`${data.connectionUserId}`)}>
             <div className='connection__header'>
                 <span className='connection__username'>@{data.connectionUsername}</span>
                 <span className='connection__message-time'>{date}</span>

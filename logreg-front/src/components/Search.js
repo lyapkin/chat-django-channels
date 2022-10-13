@@ -69,8 +69,10 @@ const Search = ({setSearchResult}) => {
         }
     }
 
+    const classNames = location.state?.isSearch ? 'search search_active' : 'search'
+
     return (
-        <div className='search'>
+        <div className={classNames}>
             <input onFocus={handleFocus} onChange={handleChange} value={text} ref={searchInput} placeholder='Search' maxLength='41' />
         </div>
     )

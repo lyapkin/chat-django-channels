@@ -15,20 +15,18 @@
     min-height: 16px;
     background: #ebeef3;
     border: none;
-    border-radius: 7px;
+    border-bottom: 2px solid #ebeef3;
     padding: 12px;
     overflow: hidden;
 }
 
 .message-input__textarea:focus {
     outline: none;
+    border-bottom: 2px solid #608dff;
 }
 
 .message-input__button {
     border-radius: 7px;
-    /* height: fit-content; */
-    /* padding: 10px 30px; */
-    /* align-self: flex-end; */
 }
 
 @media all and (max-width: 700px) {

@@ -17,7 +17,7 @@ const MessageInput = () => {
     const handleChange = event => {
         setMessage(event.target.value)
         textAreaElement.current.style.height = 0
-        textAreaElement.current.style.height = textAreaElement.current.scrollHeight - 20 + 'px'
+        textAreaElement.current.style.height = textAreaElement.current.scrollHeight - 24 + 'px'
     }
 
     const handleClick = event => {
