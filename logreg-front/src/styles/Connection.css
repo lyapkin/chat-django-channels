@@ -20,17 +20,18 @@
 }
 
 .connection__username {
-    font-weight: bold;
+    font-weight: 600;
     font-size: 16px;
 }
 
-/* .connection__message-sender {
-
-} */
+.connection__message-sender {
+    font-weight: 400;
+}
 
 .connection__message {
     color: #4b4c4e;
     font-size: 14px;
+    font-weight: 400;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
@@ -39,4 +40,5 @@
 .connection__message-time {
     color: #4b4c4e;
     font-size: 12px;
+    font-weight: 300;
 }

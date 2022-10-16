@@ -8,7 +8,11 @@
     background: #f6f9ff;
     border-top-left-radius: 7px;
     border-top-right-radius: 7px;
+}
+
+.message__content {
     word-break: break-all;
+    font-weight: 400;
 }
 
 .my-message {
@@ -24,4 +28,5 @@
     align-self: flex-end;
     color: #949494;
     font-size: 12px;
+    font-weight: 300;
 }
