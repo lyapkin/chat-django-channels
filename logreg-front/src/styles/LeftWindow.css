@@ -10,8 +10,4 @@
     .left-window {
         min-width: 100%;
     }
-
-    .left-window_hidden {
-        display: none;
-    }
 }

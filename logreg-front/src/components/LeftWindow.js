@@ -17,21 +17,9 @@ export const searchResultInit = {
 const LeftWindow = () => {
     const location = useLocation()
     const [searchResult, setSearchResult] = useState(searchResultInit)
-    const [hidden, setHidden] = useState(false)
-    const {connectionUserId} = useParams()
-
-    useEffect(() => {
-        if (connectionUserId) {
-            setHidden(true)
-        } else {
-            setHidden(false)
-        }
-    }, [connectionUserId])
-
-    const leftWindow = hidden ? 'left-window left-window_hidden' : 'left-window'
     
     return (
-        <div className={leftWindow} >
+        <div className='left-window' >
             <Header setSearchResult={setSearchResult} />
             {
                 (location.state?.isMenu && <MenuList />) ||
