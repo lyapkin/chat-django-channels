@@ -5,9 +5,9 @@ import MenuButton from './MenuButton'
 import BackButton from './BackButton'
 import Search from './Search'
 
-import '../styles/Header.css'
+import '../styles/LeftWindowHeader.css'
 
-const Header = ({setSearchResult}) => {
+const LeftWindowHeader = ({setSearchResult}) => {
   const location = useLocation()
 
   return (
@@ -21,4 +21,4 @@ const Header = ({setSearchResult}) => {
   )
 }
 
-export default Header
+export default LeftWindowHeader
