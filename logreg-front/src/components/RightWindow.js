@@ -1,6 +1,9 @@
 import React, {useState, useEffect} from 'react'
 import {Outlet, useParams} from 'react-router-dom'
 
+import RightWindowHeader from './RightWindowHeader'
+import RightWindowBody from './RightWindowBody'
+
 import '../styles/RightWindow.css'
 
 const RightWindow = () => {

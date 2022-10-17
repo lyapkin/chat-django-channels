@@ -6,8 +6,9 @@ import Login from './components/Login'
 import Authorized from './components/Authorized';
 import Unauthorized from './components/Unauthorized';
 import Chat from './components/Chat'
-import Messages from './components/Messages'
-import MessageInput from './components/MessageInput'
+import RightWindowHeader from './components/RightWindowHeader';
+import RightWindowBody from './components/RightWindowBody';
+import RightWindowPlaceholder from './components/RightWindowPlaceholder'
 
 function App() {
     return (
@@ -22,11 +23,11 @@ function App() {
 
                 <Route element={<Authorized />}>
                     <Route path='chat' element={<Chat />} >
-                        <Route index element={<div>pick a chat</div>} />
+                        <Route index element={<RightWindowPlaceholder />} />
                         <Route path=':connectionUserId' element={
                             <>
-                                <Messages />
-                                <MessageInput />
+                                <RightWindowHeader />
+                                <RightWindowBody />
                             </>
                         } />
                     </Route>
