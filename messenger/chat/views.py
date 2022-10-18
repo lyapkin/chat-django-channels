@@ -23,7 +23,7 @@ def provide_connections(request):
                 lastMessageContent=F('last_sent_message__content'),
                 lastMessageSentBy=F('last_sent_message__sent_by__username'),
                 lastMessageTime = F('last_sent_message__sent_time')
-        )
+        ).order_by('-last_sent_message__sent_time')
     )
     return JsonResponse(data, status=200, safe=False)
 
