@@ -14,7 +14,7 @@ const Connection = ({data}) => {
     const classNames = Number(connectionUserId) === data.connectionUserId ? 'connection connection_active' : 'connection'
 
     return (
-        <li className={classNames} onClick={() => navigate(`${data.connectionUserId}`)}>
+        <li className={classNames} onClick={() => navigate(`${data.connectionUserId}`, {replace: Boolean(connectionUserId)})}>
             <div className='connection__header'>
                 <span className='connection__username'>@{data.connectionUsername}</span>
                 <span className='connection__message-time'>{date}</span>

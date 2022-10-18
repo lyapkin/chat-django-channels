@@ -13,7 +13,7 @@ const LeftWindowHeader = ({ setSearchResult }) => {
 	return (
 		<header className='left-window-header'>
 			{
-				(location.state?.displayBack && <BackButton />) ||
+				(location.state?.displayBack && <BackButton main={true} />) ||
 				<MenuButton />
 			}
 			<Search setSearchResult={setSearchResult} />
