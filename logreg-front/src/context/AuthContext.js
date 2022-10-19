@@ -2,15 +2,19 @@ import {createContext, useEffect, useState} from 'react'
 import { useNavigate } from 'react-router-dom'
 
 export const initAuth = {
-    user: null,
-    is_authenticated: false,
-    socket: null
+    auth: {
+        user: null,
+        is_authenticated: false
+    },
+    setAuth: null,
+    chatSocket: null,
+    setChatSocket: null
 }
 const AuthContext = createContext(initAuth)
 
 export const AuthProvider = ({children}) => {
-    const [auth, setAuth] = useState(initAuth)
-    const [chatSocket, setChatSocket] = useState(null)
+    const [auth, setAuth] = useState(initAuth.auth)
+    const [chatSocket, setChatSocket] = useState(initAuth.chatSocket)
 
     const navigate = useNavigate()    
 
@@ -26,7 +30,7 @@ export const AuthProvider = ({children}) => {
                     setAuth(result.data)
                     navigate('chat', {replace: true})
                 } else {
-                    setAuth(initAuth)
+                    setAuth(initAuth.auth)
                     navigate('auth/login', {replace: true})
                 }
             } catch (error) {
