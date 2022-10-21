@@ -29,19 +29,37 @@ def provide_connections(request):
 
 
 def provide_messages(request, to_user_id):
+    data = {
+        'connectionUser': None,
+        'messages': []
+    }
     try:
-        chat_id = Connection.objects.get(user=request.user.id, connected_to=to_user_id).chat
+        connection = Connection.objects.select_related('connected_to').values(
+            'chat',
+            connectionUserId=F('connected_to__id'),
+            connectionUsername=F('connected_to__username'),
+            connectionFirstName=F('connected_to__first_name'),
+            connectionLastName=F('connected_to__last_name')
+        ).get(user=request.user.id, connected_to=to_user_id)
     except ObjectDoesNotExist:
-        return HttpResponse(status=204)
+        data['connectionUser'] = get_user_model().objects.values(
+            connectionUserId=F('id'),
+            connectionUsername=F('username'),
+            connectionFirstName=F('first_name'),
+            connectionLastName=F('last_name')
+        ).get(id=to_user_id)
         
-    data = list(
-        Message.objects.filter(chat=chat_id).values(
+        return JsonResponse(data, status=200)
+
+    data['messages'] = list(
+        Message.objects.filter(chat=connection.pop('chat')).values(
             'id',
             'content',
             sentBy=F('sent_by'),
             sentTime=F('sent_time')
         )
     )
+    data['connectionUser'] = connection
     
     return JsonResponse(data, status=200, safe=False)
 

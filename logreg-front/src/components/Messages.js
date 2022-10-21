@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { useParams } from 'react-router-dom'
 
 import useAuth from '../hooks/useAuth'
+import useMessages from '../hooks/useMessages'
 
 import Message from './Message'
 import DateBound from './DateBound'
@@ -9,31 +9,10 @@ import DateBound from './DateBound'
 import '../styles/Messages.css'
 
 const Messages = () => {
-    const [messages, setMessages] = useState([])
+    const {messages, setMessages} = useMessages()
     const [isScrolled, setIsScrolled] = useState(false)
     const {chatSocket} = useAuth()
     const messagesContainer = useRef(null)
-    const {connectionUserId} = useParams()
-    
-    useEffect(() => {
-        const getMessages = async () => {
-            try {
-                const response = await fetch(`http://127.0.0.1:8000/connections/${connectionUserId}`, {
-                    method: 'GET',
-                    credentials: 'include'
-                })
-                if (response.status === 204) {
-                    setMessages([])
-                } else if (response.ok) {
-                    const result = await response.json()
-                    setMessages(result)
-                }
-            } catch {
-                console.log('network problem')
-            }
-        }
-        getMessages()
-    }, [connectionUserId])
 
     useEffect(() => {
         const handleMessage = event => {
