@@ -69,10 +69,8 @@ const Search = ({setSearchResult}) => {
         }
     }
 
-    const classNames = location.state?.isSearch ? 'search search_active' : 'search'
-
     return (
-        <div className={classNames}>
+        <div className={`search ${location.state?.isSearch && 'search_active'}`}>
             <input onFocus={handleFocus} onChange={handleChange} value={text} ref={searchInput} placeholder='Search' maxLength='41' />
         </div>
     )

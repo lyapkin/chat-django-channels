@@ -42,10 +42,8 @@ const RightWindow = () => {
         }
     }, [connectionUserId])
 
-    const rightWindow = visible ? 'right-window right-window_visible' : 'right-window'
-
     return (
-        <div className={rightWindow}>
+        <div className={`right-window ${visible && 'right-window_visible'}`}>
             <MessagesContext.Provider value={{messages, setMessages}} >
             <ConnectionUserInfoContext.Provider value={connectionUserInfo} >
                 <Outlet />
