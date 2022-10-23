@@ -1,14 +1,19 @@
 import React, {useState, useEffect} from 'react'
-import {Outlet, useParams} from 'react-router-dom'
+import {useParams} from 'react-router-dom'
+
+import RightWindowHeader from './RightWindowHeader'
+import RightWindowBody from './RightWindowBody'
+import RightWindowPlaceholder from './RightWindowPlaceholder'
+
 import ConnectionUserInfoContext from '../context/ConnectionUserInfoContext'
 import MessagesContext from '../context/MessagesContext'
 
-
+import { useDisplayMessagesBlock } from '../hooks/useDisplayMessagesBlock'
 
 import '../styles/RightWindow.css'
 
 const RightWindow = () => {
-    const [visible, setVisible] = useState(false)
+    const [isVisible, isMounted, handleTransitionEnd] = useDisplayMessagesBlock()
     const [messages, setMessages] = useState([])
     const [connectionUserInfo, setConnectionUserInfo] = useState({})
     const {connectionUserId} = useParams()
@@ -34,21 +39,18 @@ const RightWindow = () => {
         }
     }, [connectionUserId])
 
-    useEffect(() => {
-        if (connectionUserId) {
-            setVisible(true)
-        } else {
-            setVisible(false)
-        }
-    }, [connectionUserId])
-
     return (
-        <div className={`right-window ${visible && 'right-window_visible'}`}>
-            <MessagesContext.Provider value={{messages, setMessages}} >
-            <ConnectionUserInfoContext.Provider value={connectionUserInfo} >
-                <Outlet />
-            </ConnectionUserInfoContext.Provider>
-            </MessagesContext.Provider>
+        <div className={`right-window ${isVisible && 'right-window_visible'}`} onTransitionEnd={handleTransitionEnd}>
+            {isMounted ? (
+                <MessagesContext.Provider value={{messages, setMessages}} >
+                <ConnectionUserInfoContext.Provider value={connectionUserInfo} >
+                    <RightWindowHeader />
+                    <RightWindowBody />
+                </ConnectionUserInfoContext.Provider>
+                </MessagesContext.Provider>
+            ) : (
+                <RightWindowPlaceholder />
+            )}
         </div>
     )
 }
