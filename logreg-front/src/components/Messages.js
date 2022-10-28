@@ -24,9 +24,9 @@ const Messages = () => {
             setMessages(prev => [...prev, JSON.parse(event.data).messageData])
         }
         chatSocket.addEventListener('message', handleMessage)
-        console.log('add eventlistener in messages')
+        // console.log('add eventlistener in messages')
         return () => {
-            console.log('remove eventlistener in messages')
+            // console.log('remove eventlistener in messages')
             chatSocket.removeEventListener('message', handleMessage)
         }
     }, [chatSocket])

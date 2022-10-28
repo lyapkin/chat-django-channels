@@ -49,9 +49,9 @@ const ConnectionList = () => {
                 })
             }
             chatSocket.addEventListener('message', handleMessage)
-            console.log('add eventlistener in connectionList')
+            // console.log('add eventlistener in connectionList')
             return () => {
-                console.log('remove eventlistener in connectionList')
+                // console.log('remove eventlistener in connectionList')
                 chatSocket.removeEventListener('message', handleMessage)
             }
         }

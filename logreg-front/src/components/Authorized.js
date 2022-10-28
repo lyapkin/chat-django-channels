@@ -16,13 +16,13 @@ const Authorized = () => {
                 // console.log(event)
             }
             socket.onmessage = (event) => {
-                console.log(event)
+                // console.log(event)
             }
             socket.onerror = (event) => {
-                console.log(event)
+                // console.log(event)
             }
             socket.onclose = (event) => {
-                console.log(event)
+                // console.log(event)
             }
 
             return () => {

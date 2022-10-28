@@ -1,18 +1,11 @@
 import React from 'react'
-import { useLocation, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
-const BackButton = ({main}) => {
-    const location = useLocation()
+const BackButton = () => {
     const navigate = useNavigate()
 
     const handleClick = () => {
-        if (location.state?.isSearch && main) {
-            navigate(location.pathname)
-        } else if (location.state?.isMenu && main) {
-            navigate(-1)
-        } else {
-            navigate('/chat', {state: location.state})
-        }
+        navigate(-1)
     }
 
     return (
