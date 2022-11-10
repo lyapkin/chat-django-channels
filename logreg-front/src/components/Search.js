@@ -23,7 +23,8 @@ const Search = ({setSearchResult}) => {
     const handleFocus = () => {
         const state = {
             isSearch: true,
-            displayBack: true
+            displayBack: true,
+            isOutOfMainLeftWindow: true
         }
         if (!location.state?.isSearch) {
             navigate(location.pathname, {state})

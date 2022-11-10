@@ -1,6 +1,8 @@
 import React from 'react'
 import {useNavigate, useParams} from 'react-router-dom'
 
+import { useLastCkickedConnection } from '../hooks/useLastClickedConnection'
+
 import '../styles/Connection.css'
 
 import { formatTime } from '../utils/dateTime'
@@ -8,11 +10,17 @@ import { formatTime } from '../utils/dateTime'
 const Connection = ({data}) => {
     const navigate = useNavigate()
     const {connectionUserId} = useParams()
+    const {setLastClickedConnection} = useLastCkickedConnection()
 
     const date = parseDate(data.lastMessageTime)
 
+    const handleClick = () => {
+        setLastClickedConnection(String(data.connectionUserId))
+        navigate(`${data.connectionUserId}`, {replace: Boolean(connectionUserId)})
+    }
+
     return (
-        <li className={`connection ${(Number(connectionUserId) === data.connectionUserId) && 'connection_active'}`} onClick={() => navigate(`${data.connectionUserId}`, {replace: Boolean(connectionUserId)})}>
+        <li className={`connection ${(Number(connectionUserId) === data.connectionUserId) && 'connection_active'}`} onClick={handleClick}>
             <div className='connection__header'>
                 <span className='connection__username'>@{data.connectionUsername}</span>
                 <span className='connection__message-time'>{date}</span>

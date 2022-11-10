@@ -1,5 +1,4 @@
 import React, {useState, useEffect} from 'react'
-import {useParams} from 'react-router-dom'
 
 import RightWindowHeader from './RightWindowHeader'
 import RightWindowBody from './RightWindowBody'
@@ -10,17 +9,19 @@ import MessagesContext from '../context/MessagesContext'
 
 import { useDisplayMessagesBlock } from '../hooks/useDisplayMessagesBlock'
 
+import useConnectionUserId from '../hooks/useConnectionUserId'
+
 import '../styles/RightWindow.css'
 
 const RightWindow = () => {
-    const [isVisible, isMounted, handleTransitionEnd] = useDisplayMessagesBlock()
+    const connectionUserId = useConnectionUserId()
+    const [isVisible, isMounted, handleTransitionEnd] = useDisplayMessagesBlock(connectionUserId)
     const [messages, setMessages] = useState([])
     const [connectionUserInfo, setConnectionUserInfo] = useState({})
-    const {connectionUserId} = useParams()
-
+    
     useEffect(() => {
         if (connectionUserId) {    
-            const getMessagesAndUser = async () => {
+            const getMessagesAndConnectionUser = async () => {
                 try {
                     const response = await fetch(`http://127.0.0.1:8000/connections/${connectionUserId}`, {
                         method: 'GET',
@@ -35,7 +36,7 @@ const RightWindow = () => {
                     console.log('network problem')
                 }
             }
-            getMessagesAndUser()
+            getMessagesAndConnectionUser()
         }
     }, [connectionUserId])
 

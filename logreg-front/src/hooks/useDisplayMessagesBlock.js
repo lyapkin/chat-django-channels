@@ -1,15 +1,13 @@
 import {useState, useEffect} from 'react'
-import {useParams} from 'react-router-dom'
 
 import {MOBILE_VERSION_WIDTH} from '../constants'
 
-export const useDisplayMessagesBlock = () => {
+export const useDisplayMessagesBlock = (connectionUserId) => {
     /*
         Helps unmount messages after they are hidden in mobile version
     */
     const [isVisible, setIsVisible] = useState(false)
     const [isMounted, setIsMounted] = useState(false)
-    const {connectionUserId} = useParams()
 
     useEffect(() => {
         if (connectionUserId) {
