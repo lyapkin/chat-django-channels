@@ -1,0 +1,48 @@
+.connection--active {
+    background: #dbdde2;
+    border-right: 2px solid #608dff;
+}
+
+.connection {
+    padding-left: 7px;
+    padding-right: 5px;
+    cursor: pointer;
+    display: grid;
+    place-content: space-between;
+    grid-template-areas: 
+        'username time'
+        'message .';
+    grid-template-columns: max-content max-content;
+    grid-template-rows: max-content max-content;
+    row-gap: 2px;
+}
+
+.connection__username {
+    grid-area: username;
+    font-weight: 600;
+    font-size: 16px;
+}
+
+.connection__last-message-time {
+    grid-area: time;
+    color: #4b4c4e;
+    font-size: 12px;
+    font-weight: 300;
+}
+
+.connection__last-message {
+    grid-area: message;
+}
+
+.connection__message {
+    color: #4b4c4e;
+    font-size: 14px;
+    font-weight: 400;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.connection__message-sender {
+    font-weight: 400;
+}

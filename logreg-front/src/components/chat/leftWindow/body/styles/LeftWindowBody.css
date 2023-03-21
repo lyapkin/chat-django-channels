@@ -1,0 +1,43 @@
+.left-window__body {
+    overflow-y: auto;
+    height: 100%;
+}
+
+.left-window__list {
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+    margin: 10px 0;
+}
+
+.left-window__search-headline {
+    margin: 10px 7px;
+    font-size: 12px;
+    color: #00000057;
+    text-transform: uppercase;
+}
+
+.left-window__menu {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+}
+
+.left-window__logout {
+    margin: 20px auto;
+}
+
+.left-window__logout button {
+    background-color: #7c99fd;
+    padding: 10px 55px;
+    box-shadow: 0 0 15px #0000003e;
+    border-radius: 10px;
+    font-family: 'Nunito';
+    font-weight: 900;
+    color:#ffffffad;
+}
+
+.left-window__logout button:active {
+    box-shadow: 0 0 15px #00000011;
+}

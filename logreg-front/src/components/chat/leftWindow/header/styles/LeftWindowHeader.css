@@ -1,0 +1,11 @@
+.left-window__header {
+    display: flex;
+    gap: 15px;
+    border-bottom: solid 2px #d7d9dd;
+    padding: 15px;
+}
+
+.left-window__header-headline {
+    font-family: 'Nunito';
+    font-weight: 800;
+}
