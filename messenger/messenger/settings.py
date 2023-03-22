@@ -31,12 +31,13 @@ except ImportError:
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'False'
 
-ALLOWED_HOSTS = ['.railway.app']
+ALLOWED_HOSTS = ['.railway.app', '127.0.0.1']
 CSRF_TRUSTED_ORIGINS = [
     'http://localhost:3000',
     'http://127.0.0.1:3000',
     'https://localhost:3000',
     'https://127.0.0.1:3000',
+    'https://social-hole-chat.up.railway.app/'
 ]
 
 CORS_ALLOWED_ORIGINS = [
@@ -44,6 +45,7 @@ CORS_ALLOWED_ORIGINS = [
     'http://127.0.0.1:3000',
     'https://localhost:3000',
     'https://127.0.0.1:3000',
+    'https://social-hole-chat.up.railway.app/'
 ]
 # CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_CREDENTIALS = True
