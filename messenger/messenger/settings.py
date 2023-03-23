@@ -48,8 +48,8 @@ CORS_ALLOWED_ORIGINS = [
     'http://127.0.0.1:3000',
     'https://localhost:3000',
     'https://127.0.0.1:3000',
-    'http://lyapkin.github.io/',
-    'https://lyapkin.github.io/'
+    'http://lyapkin.github.io',
+    'https://lyapkin.github.io'
 ]
 # CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_CREDENTIALS = True
