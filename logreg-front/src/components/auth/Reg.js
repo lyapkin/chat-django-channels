@@ -33,7 +33,7 @@ const Reg = () => {
                     setPassword({error: {isExist: true, msg: passwordMsg}, value})
                 }
                 break
-            case 'password_confirm':
+            case 'password-confirm':
                 setPasswordConfirm(value)
                 if(value === password.value) {
                     setPassword({...initState, value: password.value})
@@ -45,10 +45,10 @@ const Reg = () => {
             case 'email':
                 setEmail({...initState, value})
                 break
-            case 'first_name':
+            case 'firstname':
                 setFirstName(value)
                 break
-            case 'last_name':
+            case 'lastname':
                 setLastName(value)
         }
     }
