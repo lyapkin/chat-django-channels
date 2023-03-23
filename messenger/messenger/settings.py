@@ -38,14 +38,18 @@ CSRF_TRUSTED_ORIGINS = [
     'https://localhost:3000',
     'https://127.0.0.1:3000',
     'https://*.railway.app/',
-    'http://*.railway.app/'
+    'http://*.railway.app/',
+    'http://lyapkin.github.io/',
+    'https://lyapkin.github.io/'
 ]
 
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:3000',
     'http://127.0.0.1:3000',
     'https://localhost:3000',
-    'https://127.0.0.1:3000'
+    'https://127.0.0.1:3000',
+    'http://lyapkin.github.io/',
+    'https://lyapkin.github.io/'
 ]
 # CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_CREDENTIALS = True
