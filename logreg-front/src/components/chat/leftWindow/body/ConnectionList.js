@@ -19,7 +19,7 @@ const ConnectionList = () => {
                 if (response.ok) {    
                     const result = await response.json()
                     setConnections(result)
-                    // console.log(result)
+                    console.log(result)
                 }
             } catch {
                 console.log('network problem')
@@ -31,7 +31,10 @@ const ConnectionList = () => {
     useEffect(() => {
         if (chatSocket) {
             const handleMessage = event => {
-                const data = JSON.parse(event.data).connectionData
+                const inputData = JSON.parse(event.data)
+                const data = inputData.connectionData
+                const connectionUser = inputData.connectionUserData
+                console.log(JSON.parse(event.data))
                 setConnections(prev => {
                     const i = prev.findIndex(item => item.chatId === data.chatId)
                     if (i !== -1) {
@@ -44,6 +47,21 @@ const ConnectionList = () => {
                             },
                             ...prev.slice(0, i),
                             ...prev.slice(i+1)
+                        ]
+                    } else {   
+                        return [
+                            {
+                                id: data.id,
+                                chatId: data.chatId,
+                                connectionFirstName: connectionUser.firstName,
+                                connectionLastName: connectionUser.lastName,
+                                connectionUserId: connectionUser.id,
+                                connectionUsername: connectionUser.username,
+                                lastMessageContent: data.content,
+                                lastMessageSentBy: data.sentBy,
+                                lastMessageTime: data.sentTime
+                            },
+                            ...prev
                         ]
                     }
                 })

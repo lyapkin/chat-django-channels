@@ -45,35 +45,30 @@ class ChatConsumer(WebsocketConsumer):
         message.save()
         connection.save()
         connection_to.save()
+
+        connection_to_user = connection.user
         
         data_to_send = {
-             'messageData': {
+            'messageData': {
                 'id': message.id,
                 'content': message.content,
                 'sentBy': int(self.scope['user'].id),
                 'sentTime': message.sent_time.isoformat()
             },
             'connectionData': {
+                'id': connection.id,
                 'chatId': int(connection.chat.id),
                 'content': message.content,
                 'sentBy': self.scope['user'].username,
                 'sentTime': message.sent_time.isoformat()
+            },
+            'connectionUserData' : {
+                'id': connection_to_user.id,
+                'username': connection_to_user.username,
+                'firstName': connection_to_user.first_name,
+                'lastName': connection_to_user.last_name
             }
         }
-        # data_to_send = {
-        #      'messageData': {
-        #         'id': int(datetime.now().timestamp()),
-        #         'content': data['message'],
-        #         'sentBy': int(self.scope['user'].id),
-        #         'sentTime': datetime.now().isoformat()
-        #     },
-        #     'connectionData': {
-        #         'chatId': int(connection.chat.id),
-        #         'content': data['message'],
-        #         'sentBy': self.scope['user'].username,
-        #         'sentTime': datetime.now().isoformat()
-        #     }
-        # }
         
         self.send(json.dumps(data_to_send))
         # reminder: save a message to the database (correct id and sentTime before saving) and update the connections
