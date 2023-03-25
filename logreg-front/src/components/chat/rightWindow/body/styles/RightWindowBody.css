@@ -1,7 +1,0 @@
-.right-window__body {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    height: 100%;
-    overflow-y: hidden;
-}

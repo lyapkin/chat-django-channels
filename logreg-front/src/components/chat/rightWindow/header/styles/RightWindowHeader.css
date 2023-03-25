@@ -1,8 +1,0 @@
-.right-window__header {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    padding: 0 15px;
-    border-bottom: 2px solid #d7d9dd;
-    min-height: 55px;
-}
