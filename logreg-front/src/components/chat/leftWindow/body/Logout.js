@@ -2,6 +2,7 @@ import React from 'react'
 import {useNavigate} from 'react-router-dom'
 import useAuth from '../../../../hooks/useAuth'
 import { initAuth } from '../../../../context/AuthContext'
+import { BASE_HTTP_URL } from '../../../../constants'
 
 
 const Logout = () => {
@@ -11,7 +12,7 @@ const Logout = () => {
 
     const handleClick = async () => {
         try {
-            const response = await fetch('http://127.0.0.1:8000/auth/logout/', {
+            const response = await fetch(BASE_HTTP_URL + '/auth/logout/', {
                 method: 'DELETE',
                 credentials: 'include'
             })

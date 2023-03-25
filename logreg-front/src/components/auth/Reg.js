@@ -1,5 +1,6 @@
 import React, {useState} from 'react'
 import {useNavigate} from 'react-router-dom'
+import { BASE_HTTP_URL } from '../../constants'
 
 const initState = {
     value: '',
@@ -84,7 +85,7 @@ const Reg = () => {
                 last_name: lastName
             }
             try {
-                const response = await fetch('http://127.0.0.1:8000/auth/reg/', {
+                const response = await fetch(BASE_HTTP_URL + '/auth/reg/', {
                     method: 'POST',
                     headers: {
                         'Content-type': 'application/json;charset=utf-8'

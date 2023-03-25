@@ -1,5 +1,6 @@
 import React, {useState} from 'react'
 import {useNavigate} from 'react-router-dom'
+import { BASE_HTTP_URL } from '../../constants'
 
 import useAuth from '../../hooks/useAuth'
 
@@ -31,7 +32,7 @@ const Login = () => {
             password
         }
         try {    
-            const response = await fetch('http://127.0.0.1:8000/auth/login/', {
+            const response = await fetch(BASE_HTTP_URL + '/auth/login/', {
                 method: 'POST',
                 headers: {
                     'Content-type': 'application/json;charset=utf-8'

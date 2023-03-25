@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { BASE_HTTP_URL } from '../../../../constants'
 
 import useAuth from '../../../../hooks/useAuth'
 
@@ -12,14 +13,13 @@ const ConnectionList = () => {
     useEffect(() => {
         const getConnections = async () => {
             try {
-                const response = await fetch('http://127.0.0.1:8000/connections/', {
+                const response = await fetch(BASE_HTTP_URL + '/connections/', {
                     method: 'GET',
                     credentials: 'include'
                 })
                 if (response.ok) {    
                     const result = await response.json()
                     setConnections(result)
-                    console.log(result)
                 }
             } catch {
                 console.log('network problem')

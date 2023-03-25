@@ -1,10 +1,11 @@
 import {createContext, useEffect, useState} from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
+import { BASE_HTTP_URL } from '../constants'
 
 export const initAuth = {
     auth: {
         user: null,
-        is_authenticated: false
+        is_authenticated: null
     },
     setAuth: null,
     chatSocket: null,
@@ -15,13 +16,14 @@ const AuthContext = createContext(initAuth)
 export const AuthProvider = ({children}) => {
     const [auth, setAuth] = useState(initAuth.auth)
     const [chatSocket, setChatSocket] = useState(initAuth.chatSocket)
+    const location = useLocation()
 
     const navigate = useNavigate()    
 
     useEffect(() => {
         const checkSession = async () => {
             try {
-                const response = await fetch('http://127.0.0.1:8000/auth/sessioncheck/', {
+                const response = await fetch(BASE_HTTP_URL + '/auth/sessioncheck/', {
                     method: 'GET',
                     credentials: 'include'
                 })
@@ -30,8 +32,11 @@ export const AuthProvider = ({children}) => {
                     setAuth(result.data)
                     navigate('chat', {replace: true})
                 } else {
-                    setAuth(initAuth.auth)
-                    navigate('auth/login', {replace: true})
+                    setAuth({
+                        ...initAuth.auth,
+                        is_authenticated: false
+                    })
+                    navigate(location.pathname, {replace: true})
                 }
             } catch (error) {
                 console.log('network Problems')
@@ -42,7 +47,11 @@ export const AuthProvider = ({children}) => {
 
     return (
         <AuthContext.Provider value={{auth, setAuth, chatSocket, setChatSocket}}>
-            {children}
+            {
+                auth.is_authenticated === null ?
+                <div>Loading</div> :
+                children
+            }
         </AuthContext.Provider>
     )
 }

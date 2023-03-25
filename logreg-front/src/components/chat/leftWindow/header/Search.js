@@ -1,5 +1,6 @@
 import React, {useState, useEffect, useRef} from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
+import { BASE_WS_URL } from '../../../../constants'
 
 import {searchResultInit} from '../LeftWindow'
 
@@ -41,7 +42,7 @@ const Search = ({setSearchResult}) => {
             return
         }
         if (!socket || socket.readyState === WebSocket.CLOSING || socket.readyState === WebSocket.CLOSED) {
-            socket = new WebSocket('ws://127.0.0.1:8000/ws/search/')
+            socket = new WebSocket(BASE_WS_URL + '/ws/search/')
             socket.onopen = (event) => {
                 socket.send(value)
                 socket.timer = setTimeout((socket) => {

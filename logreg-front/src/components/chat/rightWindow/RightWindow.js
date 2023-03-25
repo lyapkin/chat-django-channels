@@ -12,6 +12,7 @@ import { useDisplayMessagesBlock } from '../../../hooks/useDisplayMessagesBlock'
 import useConnectionUserId from '../../../hooks/useConnectionUserId'
 
 import './styles/RightWindow.css'
+import { BASE_HTTP_URL } from '../../../constants'
 
 const RightWindow = () => {
     const connectionUserId = useConnectionUserId()
@@ -23,7 +24,7 @@ const RightWindow = () => {
         if (connectionUserId) {    
             const getMessagesAndConnectionUser = async () => {
                 try {
-                    const response = await fetch(`http://127.0.0.1:8000/connections/${connectionUserId}`, {
+                    const response = await fetch(BASE_HTTP_URL + `/connections/${connectionUserId}`, {
                         method: 'GET',
                         credentials: 'include'
                     })

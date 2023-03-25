@@ -1,5 +1,6 @@
 import React, {useEffect} from 'react'
 import {Outlet, Navigate, useLocation} from 'react-router-dom'
+import { BASE_WS_URL } from '../constants'
 
 import useAuth from '../hooks/useAuth'
 
@@ -9,7 +10,7 @@ const Authorized = () => {
 
     useEffect(() => {
         if (auth.is_authenticated) {
-            const socket = new WebSocket('ws://127.0.0.1:8000/ws/chat/')
+            const socket = new WebSocket(BASE_WS_URL + '/ws/chat/')
 
             socket.onopen = (event) => {
                 setChatSocket(socket)
