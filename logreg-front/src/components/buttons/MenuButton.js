@@ -11,7 +11,7 @@ const MenuButton = () => {
         const state = {
             isMenu: true,
             displayBack: true,
-            isOutOfMainLeftWindow: true
+            isLeftWindowNotDefault: true
         }
         navigate(location.pathname, {state})
     }

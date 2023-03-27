@@ -1,45 +1,53 @@
-import { useContext, useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { MOBILE_VERSION_WIDTH } from "../constants";
 
-import {LastClickedConnectionContext} from '../context/LastClickedConnectionContext'
+import { useLastCkickedConnection } from "./useLastClickedConnection";
 
 
 const useConnectionUserId = () => {
     /*
-        It helps the browser back and forth buttons work the intended way
+        This hook helps the messeges view in the right window to stay consistent while using the browwser back and forth buttons,
+        holding it away from jumping between different chats.
+
+        It gives the last clicked chat to the right window if there is any.
+        If user navigates back and there is some other chat, different form the current one, in the history stack
+        then the right window still renders the current one.
+
+        Also the navigation buttons doesn't affect the rigth window while the left window view different from the main
+        (the user's list of connections)
     */
-    const isPrevLocationOutMainLeftWindowRef = useRef(false)
-    const {lastClickedConnection, setLastClickedConnection} = useContext(LastClickedConnectionContext)
-    const {connectionUserId} = useParams()
+    const isPrevLocationNotDefaultLeftWindowRef = useRef(false)
+    const {lastClickedConnection: currentConnection, setLastClickedConnection} = useLastCkickedConnection()
+    const {connectionUserId: historyConnection} = useParams()
     const location = useLocation()
     const navigate = useNavigate()
 
-    const connectionId = lastClickedConnection || connectionUserId
+    const connectionId = currentConnection || historyConnection
     
     useEffect(() => {
-        if (connectionUserId && connectionUserId !== lastClickedConnection && lastClickedConnection) {
-            // Before a search there is a chat open
-            // It helps to replace the chat with a chosen search chat after going back from the search
+        if (historyConnection && historyConnection !== currentConnection && currentConnection) {
+            // When a user goes back or forth and there is a chat in the history stack different from the current one
+            // it replaces the history chat with the current one.
             navigate(connectionId, {replace: true, state: location.state})
-        } else if (!connectionUserId && lastClickedConnection && isPrevLocationOutMainLeftWindowRef.current &&
+        } else if (!historyConnection && currentConnection && isPrevLocationNotDefaultLeftWindowRef.current &&
                     document.documentElement.clientWidth > MOBILE_VERSION_WIDTH) {
-            // Before a search there is no chat open
-            // It helps to display a chosen search chat after going back from the search
+            // When a user goes back or forth and there is no chat in the history stack and there is the current chat
+            // it puts the current chat in the popping up point from the history stack.
             // It runs in the full size version of the app
             navigate(connectionId)
-        } else if (!connectionUserId && lastClickedConnection &&
-                    (!location.state?.isOutOfMainLeftWindow || document.documentElement.clientWidth <= MOBILE_VERSION_WIDTH)) {
+        } else if (!historyConnection && currentConnection &&
+                    (!location.state?.isLeftWindowNotDefault || document.documentElement.clientWidth <= MOBILE_VERSION_WIDTH)) {
             setLastClickedConnection(null)
         }
-    }, [connectionUserId, lastClickedConnection])
+    }, [historyConnection, currentConnection])
 
     useEffect(() => {
         return () => {
-            if (location.state?.isOutOfMainLeftWindow) {
-                isPrevLocationOutMainLeftWindowRef.current = true
+            if (location.state?.isLeftWindowNotDefault) {
+                isPrevLocationNotDefaultLeftWindowRef.current = true
             } else {
-                isPrevLocationOutMainLeftWindowRef.current = false
+                isPrevLocationNotDefaultLeftWindowRef.current = false
             }
         }
     }, [location])

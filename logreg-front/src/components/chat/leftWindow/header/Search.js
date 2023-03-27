@@ -25,7 +25,7 @@ const Search = ({setSearchResult}) => {
         const state = {
             isSearch: true,
             displayBack: true,
-            isOutOfMainLeftWindow: true
+            isLeftWindowNotDefault: true
         }
         if (!location.state?.isSearch) {
             navigate(location.pathname, {state})
