@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/chat-django-channels/static/css/main.d40d83f4.css",
-    "main.js": "/chat-django-channels/static/js/main.125a8405.js",
+    "main.js": "/chat-django-channels/static/js/main.2b6af6c9.js",
     "index.html": "/chat-django-channels/index.html",
     "static/media/menu.svg": "/chat-django-channels/static/media/menu.610b27d63254bc41175531c859310eba.svg",
     "static/media/back.svg": "/chat-django-channels/static/media/back.61308c849c9b79da66094b60ec7691b0.svg",
     "main.d40d83f4.css.map": "/chat-django-channels/static/css/main.d40d83f4.css.map",
-    "main.125a8405.js.map": "/chat-django-channels/static/js/main.125a8405.js.map"
+    "main.2b6af6c9.js.map": "/chat-django-channels/static/js/main.2b6af6c9.js.map"
   },
   "entrypoints": [
     "static/css/main.d40d83f4.css",
-    "static/js/main.125a8405.js"
+    "static/js/main.2b6af6c9.js"
   ]
 }
